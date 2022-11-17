@@ -20,9 +20,15 @@ const App = () => {
     },
   ];
 
+  const [searchTerm, setSearchTerm] = React.useState("");
+
   const handleSearch = (event) => {
-    console.log(event.target.value)
-  }
+    setSearchTerm(event.target.value);
+  };
+
+  const searchedStories = stories.filter((story) =>
+    story.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div>
@@ -32,26 +38,16 @@ const App = () => {
 
       <hr />
 
-      <List list={stories} />
+      <List list={searchedStories} />
     </div>
   );
 };
 
 const Search = (props) => {
-  const [searchTerm, setSearchTerm] = React.useState("");
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-
-    props.onSearch(event);
-  };
-
   return (
     <div>
       <label htmlFor="search">Search: </label>
-      <input id="search" type="text" onChange={handleChange} />
-      <p>
-        Search for <strong>{searchTerm}</strong>.
-      </p>
+      <input id="search" type="text" onChange={props.onSearch} />
     </div>
   );
 };
@@ -68,15 +64,15 @@ const List = (props) => {
 
 const Item = (props) => {
   return (
-  <li key={props.item.objectID}>
-    <span>
-      <a href="{props.item.url}">{props.item.title} </a>
-    </span>
-    <span>{props.item.author}</span>
-    <span>{props.item.num_comments}</span>
-    <span>{props.item.points}</span>
-  </li>
-  )
+    <li key={props.item.objectID}>
+      <span>
+        <a href="{props.item.url}">{props.item.title} </a>
+      </span>
+      <span>{props.item.author}</span>
+      <span>{props.item.num_comments}</span>
+      <span>{props.item.points}</span>
+    </li>
+  );
 };
 
 export default App;
