@@ -12,11 +12,11 @@ const useStorageState = (key, initialState) => {
   return [value, setValue];
 };
 
-function App() {
+const App = () => {
   const stories = [
     {
       title: "React",
-      url: "https://reactjs.org",
+      url: "https://reactjs.org/",
       author: "Jordan Walke",
       num_comments: 3,
       points: 4,
@@ -24,7 +24,7 @@ function App() {
     },
     {
       title: "Redux",
-      url: "https://redux.js.org",
+      url: "https://redux.js.org/",
       author: "Dan Abramov, Andrew Clark",
       num_comments: 2,
       points: 5,
@@ -60,16 +60,16 @@ function App() {
       <List list={searchedStories} />
     </div>
   );
-}
+};
 
-function InputWithLabel({
+const InputWithLabel = ({
   id,
   value,
   type = "text",
   onInputChange,
   isFocused,
   children,
-}) {
+}) => {
   const inputRef = React.useRef();
 
   React.useEffect(() => {
@@ -91,7 +91,7 @@ function InputWithLabel({
       />
     </>
   );
-}
+};
 
 function List({ list }) {
   return (
