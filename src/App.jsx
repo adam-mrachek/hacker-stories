@@ -3,16 +3,16 @@ import * as React from "react";
 const useStorageState = (key, initialState) => {
   const [value, setValue] = React.useState(
     localStorage.getItem(key) || initialState
-  )
+  );
 
   React.useEffect(() => {
     localStorage.setItem(key, value);
-  }, [value, key])
+  }, [value, key]);
 
   return [value, setValue];
 };
 
-const App = () => {
+function App() {
   const stories = [
     {
       title: "React",
@@ -32,7 +32,7 @@ const App = () => {
     },
   ];
 
-  const [searchTerm, setSearchTerm] = useStorageState('search', 'React');
+  const [searchTerm, setSearchTerm] = useStorageState("search", "React");
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -46,43 +46,40 @@ const App = () => {
     <div>
       <h1>My Hacker Stories</h1>
 
-      <Search search={searchTerm} onSearch={handleSearch} />
+      <InputWithLabel
+        id="search"
+        label="search"
+        value={searchTerm}
+        onInputChange={handleSearch}
+      />
 
       <hr />
 
       <List list={searchedStories} />
     </div>
   );
-};
+}
 
-const Search = ({ search, onSearch }) => {
+function InputWithLabel({ id, label, value, type = "text", onInputChange }) {
   return (
     <>
-      <label htmlFor="search">Search: </label>
-      <input 
-        id="search" 
-        type="text" 
-        value={search} 
-        onChange={onSearch} 
-      />
+      <label htmlFor={id}>{label}</label>&nbsp;
+      <input id={id} type={type} value={value} onChange={onInputChange} />
     </>
   );
-};
+}
 
-const List = ({ list }) => {
+function List({ list }) {
   return (
     <ul>
-      {list.map(({ objectID, ...item} ) => (
-        <Item 
-          key={objectID}
-          {...item}
-        />
+      {list.map(({ objectID, ...item }) => (
+        <Item key={objectID} {...item} />
       ))}
     </ul>
   );
-};
+}
 
-const Item = ({ title, url, author, num_comments, points }) => {
+function Item({ title, url, author, num_comments, points }) {
   return (
     <li>
       <span>
@@ -93,6 +90,6 @@ const Item = ({ title, url, author, num_comments, points }) => {
       <span>{points}</span>
     </li>
   );
-};
+}
 
 export default App;
