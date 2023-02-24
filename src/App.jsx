@@ -48,10 +48,11 @@ function App() {
 
       <InputWithLabel
         id="search"
-        label="search"
         value={searchTerm}
         onInputChange={handleSearch}
-      />
+      >
+        <strong>Search:</strong>
+      </InputWithLabel>
 
       <hr />
 
@@ -60,10 +61,11 @@ function App() {
   );
 }
 
-function InputWithLabel({ id, label, value, type = "text", onInputChange }) {
+function InputWithLabel({ id, value, type = "text", onInputChange, children }) {
   return (
     <>
-      <label htmlFor={id}>{label}</label>&nbsp;
+      <label htmlFor={id}>{children}</label>
+      &nbsp;
       <input id={id} type={type} value={value} onChange={onInputChange} />
     </>
   );
